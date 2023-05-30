@@ -6,9 +6,10 @@ import org.springframework.data.redis.core.RedisHash;
 import javax.persistence.*;
 import java.util.List;
 
-@RedisHash("vehicleMM")
+
 @Data
-public class VehicleMakeAndModel {
+public class
+VehicleMakeAndModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,10 @@ public class VehicleMakeAndModel {
     @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
     private List<Vehicle> vehicleMakeAndModelList;
 
+
+    public VehicleMakeAndModel(){
+
+    }
 
     public VehicleMakeAndModel(String vehicleMake, String vehicleModel){
         this.vehicleMake =vehicleMake;

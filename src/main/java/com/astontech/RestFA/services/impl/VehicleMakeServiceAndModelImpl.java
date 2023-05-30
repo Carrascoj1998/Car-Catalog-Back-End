@@ -4,9 +4,11 @@ import com.astontech.RestFA.domain.VehicleMakeAndModel;
 import com.astontech.RestFA.exceptions.VehicleNotFoundException;
 import com.astontech.RestFA.repositories.VehicleMakeAndModelRepo;
 import com.astontech.RestFA.services.VehicleMakeAndModelService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class VehicleMakeServiceAndModelImpl implements VehicleMakeAndModelService {
 
 
