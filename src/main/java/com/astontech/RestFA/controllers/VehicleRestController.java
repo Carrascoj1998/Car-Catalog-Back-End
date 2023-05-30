@@ -1,9 +1,13 @@
 package com.astontech.RestFA.controllers;
 
 import com.astontech.RestFA.domain.Vehicle;
-import com.astontech.RestFA.repositories.VehicleRepo;
-import org.springframework.web.bind.annotation.*;
+import com.astontech.RestFA.exceptions.VehicleNotFoundException;
 
+import com.astontech.RestFA.services.VehicleService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -11,59 +15,82 @@ import java.util.Optional;
 @RequestMapping("/vehicle")
 public class VehicleRestController {
 
-    //region DI
-    private VehicleRepo vehicleRepo;
+    //regionDI
+    private VehicleService vehicleService;
 
-    public VehicleRestController(VehicleRepo vehicleRepo){
-        this.vehicleRepo = vehicleRepo;
+    public VehicleRestController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
     }
-
-//    private VehicleService vehicleService;
-//
-//    public VehicleRestController(VehicleService vehicleService) {
-//        this.vehicleService = vehicleService;
-//    }
-
     //endregion
-
 
     //regionCRUD MAPPINGS
     @GetMapping("/")
-    public Iterable<Vehicle> getAllVehicles(){
-        return vehicleRepo.findAll();
+    public ResponseEntity <Iterable<Vehicle>> getAllVehicles(){
+        Iterable<Vehicle> vehicleIterable = vehicleService.getAllVehicles();
+        return new ResponseEntity<>(vehicleIterable, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity <Vehicle> getVehicleById(@PathVariable Integer id) throws VehicleNotFoundException{
+        Vehicle vehicle = vehicleService.getVehicleById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(id));
+        return new ResponseEntity<>(vehicle, HttpStatus.ACCEPTED);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Vehicle> partialUpdateDynamic(@RequestBody Map<String, Object> updates,
+                                                  @PathVariable Integer id){
+        return new ResponseEntity<>(vehicleService.patchVehicle(updates, id),
+                                                    HttpStatus.ACCEPTED
+        );
+
     }
 
     @PostMapping("/")
-    public Vehicle addVehicle(@RequestBody Vehicle vehicle){
-        return vehicleRepo.save(vehicle);
+    public ResponseEntity <Vehicle> addVehicle(@RequestBody Vehicle vehicle){
+        return new ResponseEntity<>(vehicleService.saveVehicle(vehicle),
+                                    HttpStatus.CREATED
+        );
     }
 
+    //idempotent-multiple request will not change the system
     @PutMapping("/")
-    public Vehicle updateVehicle(@RequestBody Vehicle vehicle){
-        return vehicleRepo.save(vehicle);
+    public ResponseEntity <Vehicle> updateVehicle(@RequestBody Vehicle vehicle){
+        return new ResponseEntity<>(vehicleService.saveVehicle(vehicle),
+                                    HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     public void deleteVehicleById(@PathVariable Integer id){
-         vehicleRepo.deleteById(id);
+         vehicleService.deleteVehicleById(id);
+    }
+
+
+
+    //endregion
+
+    //regionQUERY Param
+    @GetMapping()//http://localhost:8080/vehicle?purchasePrice=$21,000
+    public Optional<Vehicle> getByIdOrPurchasePrice(@RequestParam(required = false)Integer id,
+                                                  @RequestParam(required = false)String purchasePrice){
+        if(purchasePrice != null && !purchasePrice.isEmpty()){
+            return Optional.ofNullable(vehicleService.findByPurchasePrice(purchasePrice)
+                    .orElseThrow(() -> new VehicleNotFoundException(purchasePrice)));
+        }else if (id != null){
+            return vehicleService.getVehicleById(id);
+        }else{
+            //throw custom exception
+            throw new VehicleNotFoundException((purchasePrice == null ? id: Integer.valueOf(purchasePrice)));
+        }
     }
 
     //endregion
 
-    //regionQUEry Param
-    @GetMapping()//http://localhost:8080/vehicle?purchasePrice=$21,000
-    public Optional<Vehicle> getByIdPurchasePrice(@RequestParam(required = false)Integer id,
-                                                  @RequestParam(required = false)String purchasePrice){
-        if(purchasePrice != null && !purchasePrice.isEmpty()){
-            return vehicleRepo.findByPurchasePrice(purchasePrice);
-        }else if (id != null){
-            return Optional.of(vehicleRepo.findById(id).get());
-        }else{
-            //throw custom exception
-            return Optional.of(new Vehicle());
-        }
-    }
-    //region
+
+
+
+
+
 
 
 

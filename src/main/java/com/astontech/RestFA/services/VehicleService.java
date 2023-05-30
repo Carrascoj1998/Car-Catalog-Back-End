@@ -2,11 +2,13 @@ package com.astontech.RestFA.services;
 
 import com.astontech.RestFA.domain.Vehicle;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface VehicleService {
 
-    Vehicle getVehicleById(Integer id);
+    Optional<Vehicle> getVehicleById(Integer id);
+
 
     Iterable<Vehicle> getAllVehicles();
 
@@ -21,6 +23,8 @@ public interface VehicleService {
     void deleteVehicle(Vehicle vehicle);
 
     Optional<Vehicle> findByPurchasePrice(String purchasePrice);
+
+    Vehicle patchVehicle(Map<String, Object> updates, Integer id);
 
 
 

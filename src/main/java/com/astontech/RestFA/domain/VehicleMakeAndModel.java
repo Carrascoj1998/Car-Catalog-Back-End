@@ -21,4 +21,10 @@ public class VehicleMakeAndModel {
     @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
     private List<Vehicle> vehicleMakeAndModelList;
 
+
+    public VehicleMakeAndModel(String vehicleMake, String vehicleModel){
+        this.vehicleMake =vehicleMake;
+        this.vehicleModel = vehicleModel;
+    }
+
 }
