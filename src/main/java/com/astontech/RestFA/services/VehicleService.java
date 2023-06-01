@@ -12,7 +12,7 @@ public interface VehicleService {
 
     Iterable<Vehicle> getAllVehicles();
 
-    Vehicle findByIdOrPurchacePrice(Integer id, String purchasePrice);
+    Vehicle findByIdOrPurchasePrice(Integer id, String purchasePrice);
 
     Vehicle updateVehicle(Vehicle vehicle);
 
@@ -25,6 +25,8 @@ public interface VehicleService {
     Optional<Vehicle> findByPurchasePrice(String purchasePrice);
 
     Vehicle patchVehicle(Map<String, Object> updates, Integer id);
+
+
 
 
 
