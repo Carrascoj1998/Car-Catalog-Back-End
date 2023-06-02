@@ -3,6 +3,8 @@ package com.astontech.RestFA.controllers;
 import com.astontech.RestFA.domain.Vehicle;
 import com.astontech.RestFA.exceptions.VehicleNotFoundException;
 import com.astontech.RestFA.services.VehicleService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,7 @@ public class VehicleRestController {
     }
 
     @GetMapping("/{id}")
+    @Cacheable(value = "vehicleCache" , key= "#id")
     public ResponseEntity <Vehicle> getVehicleById(@PathVariable Integer id) throws VehicleNotFoundException{
         Vehicle vehicle = vehicleService.getVehicleById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
@@ -37,6 +40,7 @@ public class VehicleRestController {
     }
 
     @PatchMapping("/{id}")
+    @CacheEvict(value = "vehicleCache", key= "#id")
     public ResponseEntity<Vehicle> partialUpdateDynamic(@RequestBody Map<String, Object> updates,
                                                   @PathVariable Integer id){
         return new ResponseEntity<>(vehicleService.patchVehicle(updates, id),
@@ -54,14 +58,22 @@ public class VehicleRestController {
 
     //idempotent-multiple request will not change the system
     @PutMapping("/")
+    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
     public ResponseEntity <Vehicle> updateVehicle(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.saveVehicle(vehicle),
                                     HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
+    @CacheEvict(value = "vehicleCache", key= "#id")
     public void deleteVehicleById(@PathVariable Integer id){
          vehicleService.deleteVehicleById(id);
+    }
+
+    @DeleteMapping("/")
+    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
+    public void deleteVehicle(@RequestBody Vehicle vehicle){
+        vehicleService.deleteVehicle(vehicle);
     }
 
 

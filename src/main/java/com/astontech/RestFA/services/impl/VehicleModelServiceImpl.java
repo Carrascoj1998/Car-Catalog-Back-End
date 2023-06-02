@@ -71,7 +71,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     }
 
     @Override
-    public VehicleModel saveVehicleModel(VehicleModel vehicleModel) throws VehicleModelAndCreatDateInDBAlready {
+public VehicleModel saveVehicleModel(VehicleModel vehicleModel) throws VehicleModelAndCreatDateInDBAlready {
         String checkCreateDate = vehicleModel.getCreateDate();
         String checkModel = vehicleModel.getVehicleModel();
 

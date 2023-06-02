@@ -24,7 +24,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @Cacheable(value = "vehicleCache" , key= "#id")
     public Optional<Vehicle> getVehicleById(Integer id) {
         return vehicleRepo.findById(id);
     }
@@ -51,7 +50,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
     public Vehicle updateVehicle(Vehicle vehicle) {
 
         String newVehicleVin1 = vehicle.getVin();
@@ -69,13 +67,13 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @CacheEvict(value = "vehicleCache", key= "#id")
+
     public void deleteVehicleById(Integer id) {
         vehicleRepo.deleteById(id);
     }
 
     @Override
-    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
+
     public void deleteVehicle(Vehicle vehicle) {
         vehicleRepo.delete(vehicle);
     }
@@ -93,7 +91,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    @CacheEvict(value = "vehicleCache", key= "#id")
     public Vehicle patchVehicle(Map<String, Object> updates, Integer id) throws FieldNotFoundException {
         //find Vehicle By id or throw exception
         Vehicle vehicleToPatch = vehicleRepo.findByPurchasePriceOrId(null, id)

@@ -3,6 +3,7 @@ package com.astontech.RestFA.controllers;
 import com.astontech.RestFA.domain.VehicleModel;
 import com.astontech.RestFA.exceptions.VehicleModelNotFoundException;
 import com.astontech.RestFA.services.VehicleModelService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class VehicleModelController {
     }
 
     @GetMapping("{id}")
+//    @Cacheable(value = "vehicleModelCache" , key= "#id")
     public ResponseEntity<VehicleModel> getVehicleModelById(@PathVariable Integer id) throws VehicleModelNotFoundException{
         VehicleModel vehicleModel = vehicleModelService.findVehicleModelById(id)
                 .orElseThrow(()-> new VehicleModelNotFoundException(id));
@@ -54,6 +56,7 @@ public class VehicleModelController {
     }
 
     @PatchMapping("/{id}")
+//    @Cacheable(value = "vehicleModelCache" , key= "#id")
     public ResponseEntity<VehicleModel> partialUpdate(@RequestBody Map<String, Object>updates,
                                                       @PathVariable Integer id){
         return new ResponseEntity<>(vehicleModelService.patchVehicleModel(updates, id),
@@ -67,18 +70,21 @@ public class VehicleModelController {
     }
 
     @PutMapping("/")
+//    @CacheEvict(value = "vehicleModelCache", key= "#vehicleModel.id")
     public ResponseEntity<VehicleModel> updateVehicleModel(@RequestBody VehicleModel vehicleModel){
         return new ResponseEntity<>(vehicleModelService.saveVehicleModel(vehicleModel),
                 HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
+//    @CacheEvict(value = "vehicleModelCache", key= "#id")
     public void deleteVehicleModelById(@PathVariable Integer id){
         vehicleModelService.deleteVehicleModelById(id);
 
     }
 
     @DeleteMapping("/")
+//    @CacheEvict(value = "vehicleModelCache", key= "#vehicleModel.id")
     public void deleteVehicleModel(@RequestBody VehicleModel vehicleModel){
         vehicleModelService.deleteVehicleModel(vehicleModel);
     }
