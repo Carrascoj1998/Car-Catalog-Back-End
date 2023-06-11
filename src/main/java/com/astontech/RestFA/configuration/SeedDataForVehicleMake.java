@@ -27,25 +27,25 @@ public class SeedDataForVehicleMake implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(vehicleMakeRepo.count()== 0){
-//
-//            VehicleMake vehicleMake1 = new VehicleMake("Kia");
-//            VehicleMake vehicleMake2 = new VehicleMake("Dodge");
-//            VehicleMake vehicleMake3 = new VehicleMake("BMW");
-//            VehicleMake vehicleMake4 = new VehicleMake("IDK");
-//            VehicleMake vehicleMake5 = new VehicleMake("Audi");
-//            VehicleMake vehicleMake6 = new VehicleMake("Ford");
-//
-//
-//
-//
-//
-//
-//            vehicleMakeRepo.save(vehicleMake1);
-//            vehicleMakeRepo.save(vehicleMake2);
-//            vehicleMakeRepo.save(vehicleMake3);
-//            vehicleMakeRepo.save(vehicleMake4);
-//            vehicleMakeRepo.save(vehicleMake5);
-//            vehicleMakeRepo.save(vehicleMake6);
+
+            VehicleMake vehicleMake1 = new VehicleMake("Kia");
+            VehicleMake vehicleMake2 = new VehicleMake("Dodge");
+            VehicleMake vehicleMake3 = new VehicleMake("BMW");
+            VehicleMake vehicleMake4 = new VehicleMake("IDK");
+            VehicleMake vehicleMake5 = new VehicleMake("Audi");
+            VehicleMake vehicleMake6 = new VehicleMake("Ford");
+
+
+
+
+
+
+            vehicleMakeRepo.save(vehicleMake1);
+            vehicleMakeRepo.save(vehicleMake2);
+            vehicleMakeRepo.save(vehicleMake3);
+            vehicleMakeRepo.save(vehicleMake4);
+            vehicleMakeRepo.save(vehicleMake5);
+            vehicleMakeRepo.save(vehicleMake6);
 
 
         }
