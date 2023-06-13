@@ -1,6 +1,7 @@
 package com.astontech.RestFA.domain;
 
 import lombok.Data;
+import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +21,14 @@ public class Vehicle {
     @Column(unique = true)
     private String vin;
     private String purchasePrice;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicleMakeId") // Assuming the column name in the database for the make relationship is "make_id"
+    private VehicleMake vehicleMake;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicleModelId") // Assuming the column name in the database for the model relationship is "model_id"
+    private VehicleModel vehicleModel;
 
 
 

@@ -19,7 +19,7 @@ public class VehicleMake {
     private String vehicleMake;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER,orphanRemoval = true)
     private List<VehicleModel> vehicleModelList;
 
     public VehicleMake(){

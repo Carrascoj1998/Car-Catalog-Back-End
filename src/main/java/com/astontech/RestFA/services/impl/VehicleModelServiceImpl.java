@@ -71,20 +71,20 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     }
 
     @Override
-public VehicleModel saveVehicleModel(VehicleModel vehicleModel) throws VehicleModelAndCreatDateInDBAlready {
-        String checkCreateDate = vehicleModel.getCreateDate();
-        String checkModel = vehicleModel.getVehicleModel();
-
-
-        for(VehicleModel existingVehicleModel: vehicleModelRepo.findAll()){
-            if (existingVehicleModel.getVehicleModel().equals(checkModel) &&
-                    existingVehicleModel.getCreateDate().equals(checkCreateDate)){
-
-                System.out.println("Vehicle Make and CreateDate Already In the DataBase");
-                throw new VehicleModelAndCreatDateInDBAlready(checkModel, checkCreateDate);
-
-            }
-        }
+    public VehicleModel saveVehicleModel(VehicleModel vehicleModel) throws VehicleModelAndCreatDateInDBAlready {
+//        String checkCreateDate = vehicleModel.getCreateDate();
+//        String checkModel = vehicleModel.getVehicleModel();
+//
+//
+//        for(VehicleModel existingVehicleModel: vehicleModelRepo.findAll()){
+//            if (existingVehicleModel.getVehicleModel().equals(checkModel) &&
+//                    existingVehicleModel.getCreateDate().equals(checkCreateDate)){
+//
+//                System.out.println("Vehicle Make and CreateDate Already In the DataBase");
+//                throw new VehicleModelAndCreatDateInDBAlready(checkModel, checkCreateDate);
+//
+//            }
+//        }
 
         return vehicleModelRepo.save(vehicleModel);
     }

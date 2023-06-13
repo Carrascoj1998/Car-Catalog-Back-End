@@ -17,9 +17,8 @@ public class VehicleModel {
 
     private String vehicleModel;
 
-    private String createDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Vehicle> vehicleList ;
 
     public  VehicleModel(){
@@ -27,16 +26,16 @@ public class VehicleModel {
     }
 
 
-    public VehicleModel(String vehicleModel, String createDate){
+    public VehicleModel(String vehicleModel){
         this.vehicleModel =vehicleModel;
-        this.createDate=createDate;
+
     }
 
 
-    public VehicleModel(String vehicleModel, List<Vehicle> vehicleList, String createDate){
+    public VehicleModel(String vehicleModel, List<Vehicle> vehicleList) {
         this.vehicleModel = vehicleModel;
         this.vehicleList=vehicleList;
-        this.createDate = createDate;
+
 
     }
 
