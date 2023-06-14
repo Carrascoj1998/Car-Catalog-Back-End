@@ -44,6 +44,7 @@ public class VehicleServiceImpl implements VehicleService {
 
             }
         }
+        System.out.println();
 
         return vehicleRepo.save(vehicle);
 

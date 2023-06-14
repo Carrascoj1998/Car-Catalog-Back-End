@@ -1,6 +1,7 @@
 package com.astontech.RestFA.controllers;
 
 
+import com.astontech.RestFA.domain.VehicleDTO;
 import com.astontech.RestFA.domain.VehicleMake;
 import com.astontech.RestFA.exceptions.VehicleMakeNotFoundException;
 import com.astontech.RestFA.services.VehicleMakeService;
@@ -57,8 +58,8 @@ public class VehicleMakeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<VehicleMake> addVehicleMake(@RequestBody VehicleMake vehicleMake){
-        return new ResponseEntity<>(vehicleMakeService.saveMake(vehicleMake),
+    public ResponseEntity<VehicleMake> addVehicleMake(@RequestBody VehicleDTO vehicleDTO){
+        return new ResponseEntity<>(vehicleMakeService.saveMake(vehicleDTO),
                 HttpStatus.CREATED
         );
     }

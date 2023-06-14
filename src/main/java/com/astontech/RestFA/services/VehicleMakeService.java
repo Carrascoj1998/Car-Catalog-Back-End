@@ -1,5 +1,6 @@
 package com.astontech.RestFA.services;
 
+import com.astontech.RestFA.domain.VehicleDTO;
 import com.astontech.RestFA.domain.VehicleMake;
 
 
@@ -19,6 +20,8 @@ public interface VehicleMakeService {
     VehicleMake patchVehicleMake(Map<String, Object> updates, Integer id);
 
     VehicleMake findByIdOrMake(String vehicleMake, Integer id);
+
+    VehicleMake saveMake(VehicleDTO vehicleDTO);
 
     VehicleMake saveMake(VehicleMake vehicleMake);
 

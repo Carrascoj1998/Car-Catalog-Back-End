@@ -1,6 +1,9 @@
 package com.astontech.RestFA.services.impl;
 
+import com.astontech.RestFA.domain.Vehicle;
+import com.astontech.RestFA.domain.VehicleDTO;
 import com.astontech.RestFA.domain.VehicleMake;
+import com.astontech.RestFA.domain.VehicleModel;
 import com.astontech.RestFA.exceptions.FieldNotFoundException;
 import com.astontech.RestFA.exceptions.VehicleMakeAlreadyInDB;
 import com.astontech.RestFA.exceptions.VehicleMakeNotFoundException;
@@ -9,6 +12,8 @@ import com.astontech.RestFA.services.VehicleMakeService;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -79,15 +84,49 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
     }
 
     @Override
-    public VehicleMake saveMake(VehicleMake vehicleMake) throws VehicleMakeAlreadyInDB {
-        String checkVehicleMake = vehicleMake.getVehicleMake();
+    public VehicleMake saveMake(VehicleDTO vehicleDTO) throws VehicleMakeAlreadyInDB {
+//        String checkVehicleMake = vehicleDTO.getVehicleMake();
 
-        for(VehicleMake newVehicleMake: vehicleMakeRepo.findAll()){
-            if (newVehicleMake.getVehicleMake().equals(checkVehicleMake)){
-                throw new VehicleMakeAlreadyInDB(checkVehicleMake);
-            }
-        }
+//        for(VehicleMake newVehicleMake: vehicleMakeRepo.findAll()){
+//            if (newVehicleMake.getVehicleMake().equals(checkVehicleMake)){
+//                throw new VehicleMakeAlreadyInDB(checkVehicleMake);
+//            }
+//        }
 
+        System.out.println(vehicleDTO.getMake());
+        System.out.println(vehicleDTO.getModel());
+
+        VehicleMake vehicleMake = new VehicleMake();
+        VehicleModel vehicleModel = new VehicleModel();
+        Vehicle vehicle = new Vehicle();
+        List<Vehicle> vehicleList = new ArrayList<>();
+        List<VehicleModel> vehicleModelList = new ArrayList<>();
+
+
+
+        vehicleMake.setVehicleMake(vehicleDTO.getMake());
+        vehicleModel.setVehicleModel(vehicleDTO.getModel());
+        vehicle.setColor(vehicleDTO.getColor());
+        vehicle.setYear(vehicleDTO.getYear());
+        vehicle.setVin(vehicleDTO.getVin());
+        vehicle.setPurchasePrice(vehicleDTO.getPurchasePrice());
+
+
+//        vehicle.setVehicleModel(vehicleDTO.getModel());
+//        vehicle.setVehicleMake(vehicleDTO.getMake());
+
+        vehicleModelList.add(vehicleModel);
+        vehicleList.add(vehicle);
+
+        vehicleMake.setVehicleModelList(vehicleModelList);
+        vehicleModel.setVehicleList(vehicleList);
+
+
+        return vehicleMakeRepo.save(vehicleMake);
+    }
+
+    @Override
+    public VehicleMake saveMake(VehicleMake vehicleMake) {
         return vehicleMakeRepo.save(vehicleMake);
     }
 

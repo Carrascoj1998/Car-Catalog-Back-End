@@ -2,6 +2,7 @@ package com.astontech.RestFA.services.impl;
 
 
 
+import com.astontech.RestFA.domain.Vehicle;
 import com.astontech.RestFA.domain.VehicleModel;
 import com.astontech.RestFA.exceptions.FieldNotFoundException;
 import com.astontech.RestFA.exceptions.VehicleModelAndCreatDateInDBAlready;
@@ -9,6 +10,9 @@ import com.astontech.RestFA.exceptions.VehicleModelNotFoundException;
 import com.astontech.RestFA.repositories.VehicleModelRepo;
 import com.astontech.RestFA.services.VehicleModelService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.lang.reflect.Field;
@@ -39,7 +43,9 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public Optional<VehicleModel> findByModel(String vehicleModel) {
+        System.out.println(vehicleModel);
         return vehicleModelRepo.findByVehicleModel(vehicleModel);
+
     }
 
     @Override
@@ -71,20 +77,13 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     }
 
     @Override
-    public VehicleModel saveVehicleModel(VehicleModel vehicleModel) throws VehicleModelAndCreatDateInDBAlready {
-//        String checkCreateDate = vehicleModel.getCreateDate();
-//        String checkModel = vehicleModel.getVehicleModel();
+    public VehicleModel saveVehicleModel(VehicleModel vehicleModel){
+
+//        List<Vehicle> vehicleList = new ArrayList<>();
+////        System.out.println(vehicleModel);
 //
-//
-//        for(VehicleModel existingVehicleModel: vehicleModelRepo.findAll()){
-//            if (existingVehicleModel.getVehicleModel().equals(checkModel) &&
-//                    existingVehicleModel.getCreateDate().equals(checkCreateDate)){
-//
-//                System.out.println("Vehicle Make and CreateDate Already In the DataBase");
-//                throw new VehicleModelAndCreatDateInDBAlready(checkModel, checkCreateDate);
-//
-//            }
-//        }
+//        vehicleModel.setVehicleList(vehicleList);
+
 
         return vehicleModelRepo.save(vehicleModel);
     }

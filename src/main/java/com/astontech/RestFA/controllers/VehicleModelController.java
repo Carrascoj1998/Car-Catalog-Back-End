@@ -28,6 +28,7 @@ public class VehicleModelController {
     @GetMapping("/")
     public ResponseEntity<Iterable<VehicleModel>> getAllVehicleModels(){
         Iterable<VehicleModel> vehicleModelIterable = vehicleModelService.getAllVehicleModels();
+        System.out.println(vehicleModelIterable);
         return new ResponseEntity<>(vehicleModelIterable, HttpStatus.ACCEPTED);
     }
 

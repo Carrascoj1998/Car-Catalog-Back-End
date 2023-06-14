@@ -18,18 +18,19 @@ public class Vehicle {
     private String year;
     private String color;
 
+
     @Column(unique = true)
     private String vin;
     private String purchasePrice;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicleMakeId") // Assuming the column name in the database for the make relationship is "make_id"
-    private VehicleMake vehicleMake;
-
-    @ManyToOne
-    @JoinColumn(name = "vehicleModelId") // Assuming the column name in the database for the model relationship is "model_id"
-    private VehicleModel vehicleModel;
-
+//    @ManyToOne
+//    @JoinColumn(name = "vehicleMakeId") // Assuming the column name in the database for the make relationship is "make_id"
+//    private String vehicleMake;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "vehicleModelId") // Assuming the column name in the database for the model relationship is "model_id"
+//    private String vehicleModel;
+//
 
 
     public Vehicle(){
