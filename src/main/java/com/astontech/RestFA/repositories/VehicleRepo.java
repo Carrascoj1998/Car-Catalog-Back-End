@@ -13,4 +13,8 @@ public interface VehicleRepo extends CrudRepository<Vehicle, Integer> {
 
     Optional<Vehicle> findByPurchasePriceOrId(String purchasePrice, Integer id);
 
+    Vehicle findByVin(String vin);
+
+    void deleteByVin(String vin);
+
 }

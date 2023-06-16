@@ -43,8 +43,8 @@ public class VehicleMakeController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Iterable<VehicleMake>> findAllMakes(){
-        Iterable<VehicleMake> vehicleMakeIterable = vehicleMakeService.getAllMake();
+    public ResponseEntity<Iterable<VehicleDTO>> findAllMakes(){
+        Iterable<VehicleDTO> vehicleMakeIterable = vehicleMakeService.getAllMake();
         return new ResponseEntity<>(vehicleMakeIterable,
                 HttpStatus.ACCEPTED);
     }
@@ -58,6 +58,7 @@ public class VehicleMakeController {
     }
 
     @PostMapping("/")
+    @CacheEvict(value = "vehicleMakeCache" , allEntries = true)
     public ResponseEntity<VehicleMake> addVehicleMake(@RequestBody VehicleDTO vehicleDTO){
         return new ResponseEntity<>(vehicleMakeService.saveMake(vehicleDTO),
                 HttpStatus.CREATED
@@ -72,11 +73,11 @@ public class VehicleMakeController {
         );
     }
 
-    @PatchMapping("/{id}")
-    @CacheEvict(value = "vehicleMakeCache" , key= "#id")
+    @PatchMapping("/{vin}")
+    @CacheEvict(value = "vehicleMakeCache" , key= "#vin")
     public ResponseEntity<VehicleMake> partialUpdate(@RequestBody Map<String, Object> updates,
-                                                     @PathVariable Integer id){
-        return new ResponseEntity<>(vehicleMakeService.patchVehicleMake(updates, id),
+                                                     @PathVariable Integer vin){
+        return new ResponseEntity<>(vehicleMakeService.patchVehicleMake(updates, vin),
                 HttpStatus.ACCEPTED);
     }
 

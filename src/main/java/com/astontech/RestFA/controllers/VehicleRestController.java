@@ -32,18 +32,17 @@ public class VehicleRestController {
     }
 
     @GetMapping("/{id}")
-    @Cacheable(value = "vehicleCache" , key= "#id")
+
     public ResponseEntity <Vehicle> getVehicleById(@PathVariable Integer id) throws VehicleNotFoundException{
         Vehicle vehicle = vehicleService.getVehicleById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
         return new ResponseEntity<>(vehicle, HttpStatus.ACCEPTED);
     }
 
-    @PatchMapping("/{id}")
-    @CacheEvict(value = "vehicleCache", key= "#id")
+    @PatchMapping("/{vin}")
     public ResponseEntity<Vehicle> partialUpdateDynamic(@RequestBody Map<String, Object> updates,
-                                                  @PathVariable Integer id){
-        return new ResponseEntity<>(vehicleService.patchVehicle(updates, id),
+                                                  @PathVariable String vin){
+        return new ResponseEntity<>(vehicleService.patchVehicle(updates, vin),
                                                     HttpStatus.ACCEPTED
         );
 
@@ -58,17 +57,20 @@ public class VehicleRestController {
 
     //idempotent-multiple request will not change the system
     @PutMapping("/")
-    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
+
     public ResponseEntity <Vehicle> updateVehicle(@RequestBody Vehicle vehicle){
         return new ResponseEntity<>(vehicleService.saveVehicle(vehicle),
                                     HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{id}")
-    @CacheEvict(value = "vehicleCache", key= "#id")
-    public void deleteVehicleById(@PathVariable Integer id){
-         vehicleService.deleteVehicleById(id);
+    @DeleteMapping("/{vin}")
+    public void deleteVehiclebyVin(@PathVariable String vin){
+
+         vehicleService.deleteByVin(vin);
     }
+
+
+
 
     @DeleteMapping("/")
     @CacheEvict(value = "vehicleCache", key= "#vehicle.id")

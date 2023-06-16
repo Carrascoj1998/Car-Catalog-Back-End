@@ -23,7 +23,7 @@ public class SeedDataForAll implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+//
 //
 //        Vehicle vehicle1 = new Vehicle("2021", "Red", "$21,000", "1FMZU77KX4UA69977");
 //        Vehicle vehicle2 = new Vehicle("2010", "Gray", "$15,090", "JTKJF5C72B3011634");
@@ -84,3 +84,5 @@ public class SeedDataForAll implements CommandLineRunner {
     }
 
 }
+
+

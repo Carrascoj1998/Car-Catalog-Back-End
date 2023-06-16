@@ -39,6 +39,11 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
 
     @Override
     public Optional<VehicleMake> findByVehicleMake(String vehicleMake) {
+
+
+
+
+
         return vehicleMakeRepo.findByVehicleMake(vehicleMake);
     }
 
@@ -73,8 +78,25 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
     }
 
     @Override
-    public Iterable<VehicleMake> getAllMake() {
-        return vehicleMakeRepo.findAll();
+    public Iterable<VehicleDTO> getAllMake() {
+
+        List<VehicleDTO> vehicleList = new ArrayList<>();
+        for(VehicleMake vmak : vehicleMakeRepo.findAll()) {
+            for(VehicleModel vmod : vmak.getVehicleModelList()) {
+                for(Vehicle v : vmod.getVehicleList()) {
+                    VehicleDTO newVehicleDTO = new VehicleDTO();
+                    newVehicleDTO.setMake(vmak.getVehicleMake());
+                    newVehicleDTO.setModel(vmod.getVehicleModel());
+                    newVehicleDTO.setColor(v.getColor());
+                    newVehicleDTO.setVin(v.getVin());
+                    newVehicleDTO.setYear(v.getYear());
+                    newVehicleDTO.setPurchasePrice(v.getPurchasePrice());
+                    vehicleList.add(newVehicleDTO);
+
+                }
+            }
+        }
+        return vehicleList;
     }
 
     @Override
@@ -94,6 +116,7 @@ public class VehicleMakeServiceImpl implements VehicleMakeService {
 //        }
 
         System.out.println(vehicleDTO.getMake());
+
         System.out.println(vehicleDTO.getModel());
 
         VehicleMake vehicleMake = new VehicleMake();

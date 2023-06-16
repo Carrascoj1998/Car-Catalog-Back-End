@@ -1,6 +1,7 @@
 package com.astontech.RestFA.repositories;
 
 import com.astontech.RestFA.domain.VehicleModel;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Map;
@@ -17,5 +18,7 @@ public interface VehicleModelRepo extends CrudRepository<VehicleModel , Integer>
 
     Optional<VehicleModel> findByVehicleModelOrId(String vehicleModel, Integer id);
 
+    @Query("SELECT vm FROM VehicleModel vm JOIN vm.vehicleList vl WHERE vl.vin = :vin")
+    VehicleModel findVehicleModelByVehicleVin(String vin);
 
 }

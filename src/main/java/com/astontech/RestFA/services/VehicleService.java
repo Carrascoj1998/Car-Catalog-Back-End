@@ -24,7 +24,9 @@ public interface VehicleService {
 
     Optional<Vehicle> findByPurchasePrice(String purchasePrice);
 
-    Vehicle patchVehicle(Map<String, Object> updates, Integer id);
+    Vehicle patchVehicle(Map<String, Object> updates, String vin);
+
+    void deleteByVin(String vin);
 
 
 

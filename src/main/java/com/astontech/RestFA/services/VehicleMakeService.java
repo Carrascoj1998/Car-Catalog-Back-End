@@ -15,7 +15,7 @@ public interface VehicleMakeService {
 
     Optional<VehicleMake> findByVehicleMake(String vehicleMake);
 
-    Iterable<VehicleMake> getAllMake();
+    Iterable<VehicleDTO> getAllMake();
 
     VehicleMake patchVehicleMake(Map<String, Object> updates, Integer id);
 
