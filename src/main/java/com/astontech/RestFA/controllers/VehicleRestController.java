@@ -73,7 +73,7 @@ public class VehicleRestController {
 
 
     @DeleteMapping("/")
-    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
+//    @CacheEvict(value = "vehicleCache", key= "#vehicle.id")
     public void deleteVehicle(@RequestBody Vehicle vehicle){
         vehicleService.deleteVehicle(vehicle);
     }

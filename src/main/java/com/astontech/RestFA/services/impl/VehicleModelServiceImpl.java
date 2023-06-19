@@ -1,18 +1,10 @@
 package com.astontech.RestFA.services.impl;
-
-
-
-import com.astontech.RestFA.domain.Vehicle;
 import com.astontech.RestFA.domain.VehicleModel;
 import com.astontech.RestFA.exceptions.FieldNotFoundException;
-import com.astontech.RestFA.exceptions.VehicleModelAndCreatDateInDBAlready;
 import com.astontech.RestFA.exceptions.VehicleModelNotFoundException;
 import com.astontech.RestFA.repositories.VehicleModelRepo;
 import com.astontech.RestFA.services.VehicleModelService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.lang.reflect.Field;
