@@ -3,8 +3,6 @@ package com.astontech.RestFA.controllers;
 import com.astontech.RestFA.domain.Vehicle;
 import com.astontech.RestFA.exceptions.VehicleNotFoundException;
 import com.astontech.RestFA.services.VehicleService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
